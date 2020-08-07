@@ -1,5 +1,6 @@
 ﻿using CourseProject;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace UnitTestCourseProject
 {
@@ -26,6 +27,25 @@ namespace UnitTestCourseProject
             Encryptor encryptor = new Encryptor("поздравляю, ты получил исходный текст!!!", "скорпион");
             string result = encryptor.EncryptText(true);
             Assert.AreEqual("бщцфаирщри, бл ячъбиуъ щбюэсяёш гфуаа!!!", result);
+        }
+
+        /// <summary>
+        /// Проверяет на невозможность использования кодового слова с латинскими буквами.
+        /// </summary>
+        [TestMethod]
+        public void TestMethod3()
+        {
+            Encryptor encryptor = new Encryptor("поздравляю, ты получил исходный текст!!!", "scorpion");
+            string res = null;
+            try
+            {
+                encryptor.EncryptText(true);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                res = ex.Message;
+            }
+            Assert.IsNotNull(res);
         }
     }
 }
